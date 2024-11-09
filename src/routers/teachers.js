@@ -7,7 +7,11 @@ import express from 'express';
 //   deleteContactController,
 //   changeContactController,
 // } from '../controllers/contacts.js';
-// import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
+ import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
+import {
+  getTeacherByIdController,
+  getTeachersController,
+} from '../controllers/teachers.js';
 // import { validateBody } from '../middlewares/validateBody.js';
 // import {
 //   schemaContactPost,
@@ -20,16 +24,21 @@ import express from 'express';
 // import { upload } from '../middlewares/multer.js';
 
 const router = Router();
-import { initializeFirebase } from '../db/firebaseConfig.js';
-
-  // const app = express();
-  const db = initializeFirebase();
+// import { initializeFirebase } from '../db/firebaseConfig.js';
+//   const db = initializeFirebase();
 
 // const jsonParser = express.json();
 
 // router.use(authenticate);
 
-//  Пример маршрута для добавления данных в Firebase
+
+
+  // Пример маршрута для получения данных из Firebase
+  router.get('/', getTeachersController);
+
+   router.get('/:teacherId', getTeacherByIdController);
+
+    //  Пример маршрута для добавления данных в Firebase
   router.get('/add', (req, res) => {
     const ref = db.ref('users');
     ref.push(
@@ -47,32 +56,7 @@ import { initializeFirebase } from '../db/firebaseConfig.js';
     );
   });
 
-  // Пример маршрута для получения данных из Firebase
-  router.get('/', (req, res) => {
-    const ref = db.ref('teachers');
-    ref.once(
-      'value',
-      (snapshot) => {
-        res.send(snapshot.val());
-      },
-      (errorObject) => {
-        res.status(500).send('Ошибка при получении данных');
-      },
-    );
-  });
 
-    router.get('/:teacherId', (req, res) => {
-      const ref = db.ref('teachers');
-      ref.once(
-        'value',
-        (snapshot) => {
-          res.send(snapshot.val());
-        },
-        (errorObject) => {
-          res.status(500).send('Ошибка при получении данных');
-        },
-      );
-    });
 
 // router.get('/', ctrlWrapper(getContactsController));
 
