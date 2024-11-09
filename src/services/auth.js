@@ -15,7 +15,7 @@ import { UsersCollection } from '../db/models/User.js';
 import { SessionsCollections } from '../db/models/Session.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { log } from 'console';
-import { getFullNameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
+// import { getFullNameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
 
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
@@ -162,26 +162,26 @@ export const resetPassword = async (payload) => {
   );
 };
 
-export const loginOrSignupWithGoogle = async (code) => {
-  const loginTicket = await validateCode(code);
-  const payload = loginTicket.getPayload();
-  if (!payload) throw createHttpError(401);
+// export const loginOrSignupWithGoogle = async (code) => {
+//   const loginTicket = await validateCode(code);
+//   const payload = loginTicket.getPayload();
+//   if (!payload) throw createHttpError(401);
 
-  let user = await UsersCollection.findOne({ email: payload.email });
-  if (!user) {
-    const password = await bcrypt.hash(randomBytes(10), 10);
-    user = await UsersCollection.create({
-      email: payload.email,
-      name: getFullNameFromGoogleTokenPayload(payload),
-      password,
-      role: 'parent',
-    });
-  }
+//   let user = await UsersCollection.findOne({ email: payload.email });
+//   if (!user) {
+//     const password = await bcrypt.hash(randomBytes(10), 10);
+//     user = await UsersCollection.create({
+//       email: payload.email,
+//       name: getFullNameFromGoogleTokenPayload(payload),
+//       password,
+//       role: 'parent',
+//     });
+//   }
 
-  const newSession = createSession();
+//   const newSession = createSession();
 
-  return await SessionsCollections.create({
-    userId: user._id,
-    ...newSession,
-  });
-};
+//   return await SessionsCollections.create({
+//     userId: user._id,
+//     ...newSession,
+//   });
+// };

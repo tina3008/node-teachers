@@ -6,16 +6,16 @@ import {
   refreshSessionController,
   requestResetEmailController,
   resetPasswordController,
-  getGoogleOAuthUrlController,
-  loginWithGoogleController,
+  // getGoogleOAuthUrlController,
+  // loginWithGoogleController,
 } from '../controllers/auth.js';
 import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import {
   validUserSchema,
   loginSchema,
-  requestResetEmailSchema,
-  resetPasswordSchema,
-  loginWithGoogleOAuthSchema,
+  // requestResetEmailSchema,
+  // resetPasswordSchema,
+  // loginWithGoogleOAuthSchema,
 } from '../validation/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 
@@ -30,23 +30,23 @@ router.post('/logout', ctrlWrapper(logout));
 
 router.post('/refresh', ctrlWrapper(refreshSessionController));
 
-router.post(
-  '/send-reset-email',
-  validateBody(requestResetEmailSchema),
-  ctrlWrapper(requestResetEmailController),
-);
+// router.post(
+//   '/send-reset-email',
+//   validateBody(requestResetEmailSchema),
+//   ctrlWrapper(requestResetEmailController),
+// );
 
-router.post(
-  '/reset-pwd',
-  validateBody(resetPasswordSchema),
-  ctrlWrapper(resetPasswordController),
-);
+// router.post(
+//   '/reset-pwd',
+//   validateBody(resetPasswordSchema),
+//   ctrlWrapper(resetPasswordController),
+// );
 
-router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
+// router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
 
-router.post(
-  '/confirm-oauth',
-  validateBody(loginWithGoogleOAuthSchema),
-  ctrlWrapper(loginWithGoogleController),
-);
+// router.post(
+//   '/confirm-oauth',
+//   validateBody(loginWithGoogleOAuthSchema),
+//   ctrlWrapper(loginWithGoogleController),
+// );
 export default router;
