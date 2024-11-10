@@ -1,6 +1,4 @@
 import admin from 'firebase-admin';
-import path from 'path';
-import fs from 'fs/promises';
 import { env } from '../utils/env.js';
 
 import { initializeApp } from 'firebase/app';
@@ -23,7 +21,6 @@ import { getAnalytics } from 'firebase/analytics';
 
 export function initializeFirebase() {
 
-  // const serviceAccount = path.join(process.cwd(), 'serviceAccountKey.json');
   const serviceAccount = {
     type: env('FIREBASE_TYPE'),
     project_id: env('FIREBASE_PROJECT_ID'),
