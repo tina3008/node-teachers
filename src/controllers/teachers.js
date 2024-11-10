@@ -3,8 +3,8 @@ import createHttpError from 'http-errors';
 import { initializeFirebase } from '../db/firebaseConfig.js';
 const db = initializeFirebase();
 
-export const getTeachersController = (req, res) => {
-  const ref = db.ref('teachers');
+export const getTeachersController = async (req, res) => {
+  const ref = await db.ref('teachers');
   ref.once(
     'value',
     (snapshot) => {
@@ -16,10 +16,10 @@ export const getTeachersController = (req, res) => {
   );
 };
 
-export const getTeacherByIdController = (req, res) => {
-  const { teacherId } = req.params; // Извлекаем teacherId из параметров запроса
+export const getTeacherByIdController = async (req, res) => {
+  const { teacherId } = req.params;
 
-  const ref = db.ref(`teachers/${teacherId}`); // Указываем путь к конкретному учителю
+  const ref = await db.ref(`teachers/${teacherId}`);
   ref.once(
     'value',
     (snapshot) => {
