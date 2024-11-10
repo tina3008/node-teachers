@@ -1,6 +1,7 @@
 import admin from 'firebase-admin';
 import path from 'path';
 import fs from 'fs/promises';
+import { env } from '../utils/env.js';
 
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
@@ -20,10 +21,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 //  const analytics = getAnalytics(app);
 
-
 export function initializeFirebase() {
 
-  const serviceAccount = path.join(process.cwd(), 'serviceAccountKey.json');
+  // const serviceAccount = path.join(process.cwd(), 'serviceAccountKey.json');
+  const serviceAccount = {
+    type: env('FIREBASE_TYPE'),
+    project_id: env('FIREBASE_PROJECT_ID'),
+    private_key_id: env('FIREBASE_PRIVATE_KEY_ID'),
+     private_key: env('FIREBASE_PRIVATE_KEY'),
+    client_id: env('FIREBASE_CLIENT_ID'),
+    GOOGLE_AUTH: env('GOOGLE_AUTH'),
+    client_email: env('FIREBASE_CLIENT_EMAIL'),
+    auth_uri: env('FIREBASE_auth_uri'),
+    token_uri: env('FIREBASE_token_uri'),
+    auth_provider_x509_cert_url: env('FIREBASE_auth_provider_x509_cert_url'),
+    client_x509_cert_url: env('FIREBASE_client_x509_cert_url'),
+    universe_domain: 'googleapis.com',
+  };
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
