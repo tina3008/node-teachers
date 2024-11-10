@@ -4,4 +4,4 @@
 .vscode
 .DS_Store
 .idea
-serviceAccountKey.json
+# serviceAccountKey.json
