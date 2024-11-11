@@ -1,6 +1,5 @@
 import createHttpError from 'http-errors';
-
-import { initializeFirebase } from '../db/firebaseConfig.js';
+import { initializeFirebase } from '../db/initializeFirebase.js';
 const db = initializeFirebase();
 
 export const getTeachersController = async (req, res) => {
